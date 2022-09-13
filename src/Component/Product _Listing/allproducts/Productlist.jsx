@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import Blogs from '../../Blog_Section/Blogs'
+import Blogs from '../../Blog_Section/BlogSlider'
 import Footer from '../../Footer_Section/Footer'
 import Service from '../../service-quality/Service'
 import Header from './Header'

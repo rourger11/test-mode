@@ -1,5 +1,5 @@
 import React from 'react'
-import Blogs from '../Blog_Section/Blogs'
+import Blogs from '../Blog_Section/BlogSlider'
 import Footer from '../Footer_Section/Footer'
 import { Button, Table } from 'react-bootstrap'
 import Header from '../Product _Listing/allproducts/Header'

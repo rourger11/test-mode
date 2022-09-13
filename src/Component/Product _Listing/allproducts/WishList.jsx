@@ -2,7 +2,8 @@ import React from 'react'
 
 export default function WishList() {
   return (
-    <div>WishList is changed
+    <div> 
+      WishList is changed 
     </div>
   )
 }

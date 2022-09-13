@@ -4,7 +4,7 @@ import Banner from "../Banner/Banner";
 import Collection from "../Collection/Collection";
 import Brands from "../Brands/Brands";
 import Service from "../service-quality/Service";
-import Blogs from '../Blog_Section/Blogs'
+import Blogs from '../Blog_Section/BlogSlider'
 import Categories from "../categories/Categories";
 import Footer from "../Footer_Section/Footer";
 export default function Homepage() {
