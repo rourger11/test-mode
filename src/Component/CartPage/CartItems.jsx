@@ -33,7 +33,7 @@ export default function CartItems() {
 cartitem()
   },[])
 // cartitems
-const url = 'http://10.8.10.65/magento/rest/V1/get-customer-cart-products-by-cart-id'
+const url = 'http://10.8.11.171/magento/rest/V1/get-customer-cart-products-by-cart-id'
 
 const cartitem = async (e) => {
   setLoading(true)
@@ -76,7 +76,7 @@ const cartitem = async (e) => {
 
   const del = async (item_id) => {
     
-    const url = `http://10.8.10.65/magento/rest/V1/guest-carts/eUGl1nsnbDb3Dlm9s9ufHcYJM0zCI9Sz/items/${item_id}`
+    const url = `http://10.8.11.171/magento/rest/V1/guest-carts/eUGl1nsnbDb3Dlm9s9ufHcYJM0zCI9Sz/items/${item_id}`
 
     await axios.delete(url)
       .then((response) => {
@@ -107,7 +107,7 @@ const cartitem = async (e) => {
       }
       
   }
-    const updateUrl=`http://10.8.10.65/magento/rest/V1/guest-carts/26/items/${products.item_id}`
+    const updateUrl=`http://10.8.11.171/magento/rest/V1/guest-carts/26/items/${products.item_id}`
 
     await axios(updateUrl, {
       method:"put",
@@ -143,7 +143,7 @@ const cartitem = async (e) => {
       }
       
   }
-    const updateUrl=`http://10.8.10.65/magento/rest/V1/guest-carts/26/items/${products.item_id}`
+    const updateUrl=`http://10.8.11.171/magento/rest/V1/guest-carts/26/items/${products.item_id}`
 
     await axios(updateUrl, {
       method:"put",

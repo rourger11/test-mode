@@ -108,7 +108,7 @@ export default function Footer() {
                   aria-label="Search"
                 />
                 <button className=" my-2 my-sm-0 btn btn-primary" type="submit">
-                  sucbribe
+                  subscribe
                 </button>
               </form>
               <div className="s-icon">

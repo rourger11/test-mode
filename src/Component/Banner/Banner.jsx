@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import BlogData from "../Blog_Section/Blogapi";
 
 import axios from "axios";
 import {RotatingLines} from 'react-loader-spinner'
-
 import Carousel from "react-bootstrap/Carousel";
 
 export default function Banner(e) {
@@ -16,7 +16,11 @@ export default function Banner(e) {
   const token = "zx647qcilhrmqg1udt56ba82d4s34ck8";
   const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent";
 
-  useEffect(() => {
+useEffect(()=>{
+  bannerData();
+  BlogData()
+},[])
+
     const bannerData = async () => {
       setLoading(true)
       await axios(url, {
@@ -50,8 +54,7 @@ export default function Banner(e) {
           console.log("this is error", error);
         });
     };
-    bannerData();
-  }, []);
+ 
 
 
 

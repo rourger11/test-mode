@@ -36,7 +36,7 @@ const handleChange=async(e) =>{
 
   const token = '3sechtv3hibu69fu97xpq2zxmh9dvh0g'
 
-  const newUrl = 'http://10.8.10.65/magento/rest/V1/get-customer-cart-products-by-cart-id'
+  const newUrl = 'http://10.8.11.171/magento/rest/V1/get-customer-cart-products-by-cart-id'
 
   useEffect(()=>{
     productlist()

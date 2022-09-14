@@ -29,11 +29,11 @@ export default function FilterPriceRange() {
     }, [param])
     const token = '3sechtv3hibu69fu97xpq2zxmh9dvh0g'
     const url = 'http://10.8.10.65/magento/rest/V1/guest-carts/26/items'
-    const profile_path = "http://10.8.10.65/magento/pub/media/catalog/product/";
+    const profile_path = "http://10.8.11.171/magento/pub/media/catalog/product/";
 
-    const ASC_Order = 'http://10.8.10.65/magento/rest/V1/products?searchCriteria[sortOrders][0][field]=name&searchCriteria[sortOrders][0][direction]=ASC'
+    const ASC_Order = 'http://10.8.11.171/magento/rest/V1/products?searchCriteria[sortOrders][0][field]=name&searchCriteria[sortOrders][0][direction]=ASC'
 
-    const DESC_Order = 'http://10.8.10.65/magento/rest/V1/products?searchCriteria[sortOrders][0][field]=name&searchCriteria[sortOrders][0][direction]=DESC'
+    const DESC_Order = 'http://10.8.11.171/magento/rest/V1/products?searchCriteria[sortOrders][0][field]=name&searchCriteria[sortOrders][0][direction]=DESC'
 
     const productlist = async () => {
         setLoading(true)

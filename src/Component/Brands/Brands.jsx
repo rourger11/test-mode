@@ -15,7 +15,7 @@ export default function Brands() {
 
     const brands = async () => {
         setLoading(true)
-        await axios.get('http://10.8.10.65/magento/rest/V1/image')
+        await axios.get('https://stgm.appsndevs.com/reactmarketplace/rest/V1/image')
             .then(response => {
                 setLogo(response.data);
                 setLoading(false)
@@ -26,7 +26,7 @@ export default function Brands() {
             })
     }
     
-const baseUrl='http://10.8.10.65/magento/pub/media/'
+const baseUrl='https://stgm.appsndevs.com/reactmarketplace/pub/media/'
     return (
         <>
             <div className="client-logo">

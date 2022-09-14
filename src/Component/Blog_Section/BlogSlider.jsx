@@ -4,7 +4,6 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 import { NavLink } from "react-router-dom";
 import { RotatingLines } from "react-loader-spinner";
-
 import Slider from 'react-slick'
 export default function Blogs() {
 
@@ -12,11 +11,7 @@ export default function Blogs() {
 
   const sliderRef = useRef(null)
 
-
   const [blog, setBlog] = useState([]);
-
-
-
 
   const payload = { storeId: "1" };
 

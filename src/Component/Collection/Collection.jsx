@@ -3,6 +3,7 @@ import axios from 'axios'
 import { NavLink } from 'react-router-dom';
 import { RotatingLines } from 'react-loader-spinner';
 import  image from '../../main/assets/img/donwait.png'
+import blogData from '../Blog_Section/Blogapi';
 
 export default function Collection() {
   const [isLoading, setLoading] = useState(false);
@@ -92,6 +93,11 @@ export default function Collection() {
         console.log("this is error", error);
       });
   };
+  const res = async()=>{
+    await axios.post(blogData()).then((response)=>{
+      console.log(response,"this is ")
+    })
+  }
   return (
     <>
       <div className="tab-sec " data-wow-duration="2s" data-wow-delay="5s">

@@ -37,20 +37,24 @@ export default function Productlist() {
     }, [id]);
 
     // all product api
-    const allproducturl = `http://10.8.10.65/magento/rest/V1/products?searchCriteria[filterGroups][0][filters][0][field]=category_id& searchCriteria[filterGroups][0][filters][0][value]=3& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][1][field]=visibility& searchCriteria[filterGroups][0][filters][1][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[sortOrders][0][field]=created_at& searchCriteria[sortOrders][0][direction]=DESC& searchCriteria[pageSize]=10& searchCriteria[currentPage]=1`;
+    const allproducturl = `http://10.8.11.171/magento/rest/V1/products?searchCriteria[filterGroups][0][filters][0][field]=category_id& searchCriteria[filterGroups][0][filters][0][value]=3& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][1][field]=visibility& searchCriteria[filterGroups][0][filters][1][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[sortOrders][0][field]=created_at& searchCriteria[sortOrders][0][direction]=DESC& searchCriteria[pageSize]=10& searchCriteria[currentPage]=1`;
 
     // tablets api
-    const tableturl = `http://10.8.10.65/magento/rest/V1/products?searchCriteria[filterGroups][0][filters][0][field]=category_id& searchCriteria[filterGroups][0][filters][0][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][1][field]=visibility& searchCriteria[filterGroups][0][filters][1][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[sortOrders][0][field]=created_at& searchCriteria[sortOrders][0][direction]=DESC& searchCriteria[pageSize]=10& searchCriteria[currentPage]=1`
+    const tableturl = `http://10.8.11.171/magento/rest/V1/products?searchCriteria[filterGroups][0][filters][0][field]=category_id& searchCriteria[filterGroups][0][filters][0][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][1][field]=visibility& searchCriteria[filterGroups][0][filters][1][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[sortOrders][0][field]=created_at& searchCriteria[sortOrders][0][direction]=DESC& searchCriteria[pageSize]=10& searchCriteria[currentPage]=1`
 
     // watches api
-    const watchurl = `http://10.8.10.65/magento/rest/V1/products?searchCriteria[filterGroups][0][filters][0][field]=category_id& searchCriteria[filterGroups][0][filters][0][value]=5& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][1][field]=visibility& searchCriteria[filterGroups][0][filters][1][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[sortOrders][0][field]=created_at& searchCriteria[sortOrders][0][direction]=DESC& searchCriteria[pageSize]=10& searchCriteria[currentPage]=1`
+    const watchurl = `http://10.8.11.171/magento/rest/V1/products?searchCriteria[filterGroups][0][filters][0][field]=category_id& searchCriteria[filterGroups][0][filters][0][value]=5& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][1][field]=visibility& searchCriteria[filterGroups][0][filters][1][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[sortOrders][0][field]=created_at& searchCriteria[sortOrders][0][direction]=DESC& searchCriteria[pageSize]=10& searchCriteria[currentPage]=1`
 
-    const newToken = 'u4oh4octm3npkwvzhccj7jb4biewtfkf'
+    const newToken = 'o1iehcwcs8vqdswui9f9hdomebbfxs5y'
 
     const fetchProduct = async () => {
         if (id.entity_id === '3') {
             setLoading(true)
-            await axios.get(allproducturl)
+            await axios.get(allproducturl,{
+                headers: {
+                    'Authorization': `Bearer${newToken}`
+                  },
+            })
                 .then((res) => {
                     setData(res.data.items);
                     setShowFilter(true)
@@ -86,15 +90,15 @@ export default function Productlist() {
     // const send = (e) => {
 
     // }
-    const profile_path = "http://10.8.10.65/magento/pub/media/catalog/product/";
+    const profile_path = "http://10.8.11.171/magento/pub/media/catalog/product/";
 
     const dispatch = useDispatch();
 
 
 
     const token = '3sechtv3hibu69fu97xpq2zxmh9dvh0g'
-    const url = 'http://10.8.10.65/magento/rest/V1/guest-carts/26/items'
-    const newUrl = 'http://10.8.10.65/magento/rest/V1/get-customer-cart-products-by-cart-id'
+    const url = 'http://10.8.11.171/magento/rest/V1/guest-carts/26/items'
+    const newUrl = 'http://10.8.11.171/magento/rest/V1/get-customer-cart-products-by-cart-id'
 
 
     const productlist = async () => {

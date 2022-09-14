@@ -1,8 +1,12 @@
 import React from 'react'
-
+import { useEffect } from 'react'
+import Api from "../Blogapi"
 export default function BlogPage() {
-    
   
+useEffect(()=>{
+Api()
+},[])
+
   return (
       <>
       <div className="container my-5">

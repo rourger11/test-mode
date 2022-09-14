@@ -10,8 +10,8 @@ import { RotatingLines } from 'react-loader-spinner'
 import star from '../../../../main/assets/img/p-list/star.png'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+export default function SingleProduct () {
 
-export default function SingleProduct() {
     const navigate = useNavigate()
   const [isLoading, setLoading] = useState(false)
 
@@ -25,8 +25,8 @@ export default function SingleProduct() {
 
   // all product api
 
-  const allproducturl = `http://10.8.10.65/magento/rest/V1/products/${urlId.sku}`;
-  const profile_path = "http://10.8.10.65/magento/pub/media/catalog/product/";
+  const allproducturl = `http://10.8.11.171/magento/rest/V1/products/${urlId.sku}`;
+  const profile_path = "http://10.8.11.171/magento/pub/media/catalog/product/";
 
   const fetchProduct = async () => {
     setLoading(true)
@@ -45,8 +45,8 @@ export default function SingleProduct() {
 
 
   const token = '3sechtv3hibu69fu97xpq2zxmh9dvh0g'
-  const url = 'http://10.8.10.65/magento/rest/V1/guest-carts/26/items'
-  const newUrl = 'http://10.8.10.65/magento/rest/V1/get-customer-cart-products-by-cart-id'
+  const url = 'http://10.8.11.171/magento/rest/V1/guest-carts/26/items'
+  const newUrl = 'http://10.8.11.171/magento/rest/V1/get-customer-cart-products-by-cart-id'
 
 
   const productlist = async ()=>{
@@ -158,7 +158,7 @@ export default function SingleProduct() {
                                 
                                         <div className="product-card">
                                             
-                                            <img className="single_img" src={`http://10.8.10.65/magento/pub/media/catalog/product/${item.media_gallery_entries?.[0].file}`} alt="Second slide"  />
+                                            <img className="single_img" src={`http://10.8.11.171/magento/pub/media/catalog/product/${item.media_gallery_entries?.[0].file}`} alt="Second slide"  />
 
                                             <div className="pt-dic">
 

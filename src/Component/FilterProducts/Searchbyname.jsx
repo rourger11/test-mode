@@ -24,11 +24,11 @@ export default function Searchbyname() {
     }, [params]);
 
     const [isLoading, setLoading] = useState(false)
-    const profile_path = "http://10.8.10.65/magento/pub/media/catalog/product/";
+    const profile_path = "http://10.8.11.171/magento/pub/media/catalog/product/";
 
 
     // filter api
-    const searchUrl = `http://10.8.10.65/magento/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=name&searchCriteria[filter_groups][0][filters][0][value]=%25${params.name}%25&searchCriteria[filter_groups][0][filters][0][condition_type]=like&searchCriteria[filter_groups][0][filters][1][field]=name&searchCriteria[filter_groups][0][filters][1][condition_type]=like`
+    const searchUrl = `http://10.8.11.171/magento/rest/V1/products?searchCriteria[filter_groups][0][filters][0][field]=name&searchCriteria[filter_groups][0][filters][0][value]=%25${params.name}%25&searchCriteria[filter_groups][0][filters][0][condition_type]=like&searchCriteria[filter_groups][0][filters][1][field]=name&searchCriteria[filter_groups][0][filters][1][condition_type]=like`
 
     const searchData = async () => {
         setLoading(true)
@@ -59,8 +59,8 @@ export default function Searchbyname() {
 
     //  add to cart data api
     const token = '3sechtv3hibu69fu97xpq2zxmh9dvh0g'
-    const url = 'http://10.8.10.65/magento/rest/V1/guest-carts/26/items'
-    const newUrl = 'http://10.8.10.65/magento/rest/V1/get-customer-cart-products-by-cart-id'
+    const url = 'http://10.8.11.171/magento/rest/V1/guest-carts/26/items'
+    const newUrl = 'http://10.8.11.171/magento/rest/V1/get-customer-cart-products-by-cart-id'
 
 
     const productlist = async () => {

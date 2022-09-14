@@ -17,7 +17,9 @@ export default function Categories() {
   };
 
   const token = "zx647qcilhrmqg1udt56ba82d4s34ck8"
-  const url = "http://10.8.10.65/magento/rest/V1/getHomeContent";
+  // const url = "http://10.8.11.171/magento/rest/V1/getHomeContent";
+
+  const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent"
 
 
   useEffect(() => {
@@ -25,6 +27,8 @@ export default function Categories() {
   }, []);
 
   const category = async () => {
+
+    
     setLoading(true)
     await axios(url, {
       method: "POST",
@@ -48,7 +52,7 @@ export default function Categories() {
 
         const newdata = (res.data[1].categories).filter((item) => {
           return (
-            item.entity_id > 2 &&item.entity_id<6
+            item.entity_id > 2 &&item.entity_id < 7 
           )
 
         });
@@ -91,7 +95,7 @@ export default function Categories() {
                             <img className="d-block" src={product.image} alt="product slide" />
                           </div>
                           <h3>{product.name}</h3>
-                          <label>electronics </label>
+                          {/* <label>electronics </label> */}
                         </NavLink>
                       </div>
                     )

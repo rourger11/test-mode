@@ -1,18 +1,11 @@
-export const blogapi=()=>{
 
-const [blog, setBlog] = useState([]);
+import axios from "axios";
 
- const payload = { storeId: "1" };
+  export default function BlogData (){
 
- const token = "zx647qcilhrmqg1udt56ba82d4s34ck8";
- const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent";
-
-useEffect(() => {
-    const blogData = async () => {
-      setLoading(true)
-      await axios(url, {
+      axios('https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent', {
         method: "POST",
-        data: payload,
+        data: {storeId: "1"},
 
         header: {
           "Content-Length": "<calculated when request is sent>",
@@ -22,20 +15,14 @@ useEffect(() => {
           "Connection": "keep-alive",
           "Accept-Encoding": "gzip, deflate, br",
           "Content-Type": "application/json",
-          " Authorization": `Bearer ${token}`,
+          " Authorization": `Bearerzx647qcilhrmqg1udt56ba82d4s34ck8`,
         },
       })
         .then((res) => {
-          setBlog(res.data[2].blogs);
-          setLoading(false)
-
-
 
         })
         .catch((error) => {
           console.log("this is error", error);
         });
     };
-    blogData();
-  }, []);
-}
+
