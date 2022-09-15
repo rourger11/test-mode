@@ -4,9 +4,6 @@ import Footer from '../Footer_Section/Footer'
 import { Button, Table } from 'react-bootstrap'
 import Header from '../Product _Listing/allproducts/Header'
 import EmptyCart from './Emptycart/EmptyCart'
-import { useSelector } from 'react-redux'
-import { decreaseItem, removeFromCart } from '../Redux/ActionPage/Actions'
-import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import '../CartPage/Cartitem.css'
 import axios from 'axios'
@@ -14,7 +11,6 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react'
 import { Container } from 'react-bootstrap'
-import { addToCart } from '../Redux/ActionPage/Actions'
 import { RotatingLines } from 'react-loader-spinner'
 
 
@@ -24,9 +20,6 @@ export default function CartItems() {
 
   const [item, setItem] = useState([])
 
-  const dispatch = useDispatch();
-
-  // const getData = useSelector((state) => state.cartreducer.carts)
 
 
   useEffect(()=>{
@@ -60,6 +53,8 @@ const cartitem = async (e) => {
     })
         .then((response) => {
             setItem(response.data)
+            cartitem()
+
             setLoading(false)
         })
 
@@ -80,8 +75,6 @@ const cartitem = async (e) => {
 
     await axios.delete(url)
       .then((response) => {
-        dispatch(removeFromCart(item_id));
-
         cartitem();      
         toast.error("item removed", { autoClose: 1000 });
       })

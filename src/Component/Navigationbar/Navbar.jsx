@@ -3,72 +3,37 @@ import { Outlet, NavLink, useNavigate } from "react-router-dom";
 import logo from '../../main/assets/img/logo.png'
 import cart from '../../main/assets/img/cart.svg'
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getCustomerCartData } from "../Redux/Redux-Toolkit/reduxSlice/customerCartSlice";
 
 
 
 export default function Navigation() {
 
+  const dispatch = useDispatch()
 
 
   const navigate = useNavigate();
 
-  const [search,setSearch]=useState('');
-
- 
-
-const handleChange=async(e) =>{
-  e.preventDefault()
-
-  navigate(`/searchbyname/${search}`)
-}
+  const [search, setSearch] = useState('');
 
 
 
-  const[item,setItem]=useState();
- 
+  const handleChange = async (e) => {
+    e.preventDefault()
 
-  // getData.splice(0,getData.length) 
+    navigate(`/searchbyname/${search}`)
+  }
 
- const len=item 
+  const { data} = useSelector((state) => state.customerCart)
 
-  const id1 = 3
+  const len = data.length
 
-  const token = '3sechtv3hibu69fu97xpq2zxmh9dvh0g'
+  useEffect(() => {
+    dispatch(getCustomerCartData())
+  }, [dispatch])
 
-  const newUrl = 'http://10.8.11.171/magento/rest/V1/get-customer-cart-products-by-cart-id'
 
-  useEffect(()=>{
-    productlist()
-    
-  },[])
-
-  const productlist = async ()=>{
-    const payload = {
-        "cart_id":"26"} 
-
-        await axios(newUrl, {
-            method: "POST",
-            data: payload,
-            header: {
-                "Content-Length": '104',
-                'Host': "<calculated when request is sent>",
-                "User-Agent": "PostmanRuntime/7.29.2",
-
-                " Accept": "*/*",
-                'Connection': "keep-alive",
-
-                "Accept-Encoding": "gzip, deflate, br",
-                "Content-Type": "application/json",
-                " Authorization": `Bearer ${token}`,
-            },
-        }).then((response)=>{
-            setItem(response.data.length)
-            productlist()
-
-        })
-
-    }
   return (
 
     <>
@@ -102,7 +67,7 @@ const handleChange=async(e) =>{
               </div>
               <form className="form-inline my-2 my-lg-0 mr-3">
                 <input className="form-control " type="search" placeholder="search your keywords here" aria-label="Search" name="message" value={search}
-                onChange={(e)=>setSearch(e.target.value)}
+                  onChange={(e) => setSearch(e.target.value)}
                 />
                 <button className=" my-2 my-sm-0" type="submit" onClick={handleChange}> <FaSearch />
                 </button>

@@ -2,29 +2,24 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { FaHeart } from 'react-icons/fa'
 import { RotatingLines } from 'react-loader-spinner'
+import { useDispatch,useSelector } from 'react-redux'
+import Loading from '../Loadinganimation/Loading'
+import { getUserslogo } from '../Redux/Redux-Toolkit/reduxSlice/brandSlice'
 
 
 
 export default function Brands() {
-    const [isLoading, setLoading] = useState(false)
+    const dispatch = useDispatch();
 
-    const [logo, setLogo] = useState([])
-    useEffect(() => {
-        brands()
-    }, [])
 
-    const brands = async () => {
-        setLoading(true)
-        await axios.get('https://stgm.appsndevs.com/reactmarketplace/rest/V1/image')
-            .then(response => {
-                setLogo(response.data);
-                setLoading(false)
-            })
-
-            .catch(error => {
-                console.log(error)
-            })
-    }
+    const { data, loading, error } = useSelector((state) => state.brandsLogo)
+   
+    
+    
+    useEffect(()=>{
+    dispatch(getUserslogo())
+    },[dispatch])
+    
     
 const baseUrl='https://stgm.appsndevs.com/reactmarketplace/pub/media/'
     return (
@@ -33,23 +28,16 @@ const baseUrl='https://stgm.appsndevs.com/reactmarketplace/pub/media/'
                 <h3 className="my-5">
                     We <FaHeart color="#dc3545" /> To Our Brands
                 </h3>
-                {isLoading ? <div style={{ textAlign: "center" }}><RotatingLines
-                            strokeColor="grey"
-                            strokeWidth="5"
-                            animationDuration="0.75"
-                            width="96"
-                            visible={true}
-
-                        /> </div> :
+               {loading?<Loading/>:
                 <div className="brand-logo-outer  wow animate__animated animate__zoomIn">
-                    {logo.map((brand)=>{
+                    {data?.map((brand)=>{
                         return(
 
                             <img key={brand.image_id}className="d-block" src={`${baseUrl}${brand.image}`} alt="Second slide" />
                             )
                     })}
                 </div>
-                    }
+                    } {error?<h1>{error}</h1>:null}
             </div>
         </>
     )

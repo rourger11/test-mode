@@ -1,72 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import axios from 'axios';
+import { useDispatch,useSelector } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { RotatingLines } from 'react-loader-spinner';
-
-
+import Loading from '../Loadinganimation/Loading';
+import { getUsers } from "../Redux/Redux-Toolkit/reduxSlice/bannerSlice";
 export default function Categories() {
-  const [isLoading, setLoading] = useState(false);
-
-
+  const dispatch = useDispatch()
   
-  const [categories, setCategories] = useState([]);
-  const payload = {
-    storeId: "1",
-
-    categories: "categories"
-  };
-
-  const token = "zx647qcilhrmqg1udt56ba82d4s34ck8"
-  // const url = "http://10.8.11.171/magento/rest/V1/getHomeContent";
-
-  const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent"
+  const { data, loading, error } = useSelector((state) => state.banner)
 
 
-  useEffect(() => {
-    category();
-  }, []);
-
-  const category = async () => {
-
-    
-    setLoading(true)
-    await axios(url, {
-      method: "POST",
-      data: payload,
-
-      header: {
-        "Content-Length": "<calculated when request is sent>",
-        "Host": "<calculated when request is sent>",
-        "User-Agent": "PostmanRuntime/7.29.2",
-
-        " Accept": "*/*",
-        "Connection": "keep-alive",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Content-Type": "application/json",
-        " Authorization": `Bearer ${token}`,
-      },
-
-
-    })
-      .then((res) => {
-
-        const newdata = (res.data[1].categories).filter((item) => {
-          return (
-            item.entity_id > 2 &&item.entity_id < 7 
-          )
-
-        });
-        setLoading(false)
-
-        setCategories(newdata)
-      })
-      .catch((error) => {
-        console.log("this is error", error);
-      });
-  };
-
-
-
+  const CategoriesData = (data?.[1]?.categories)?.filter((item) => {
+            return (
+            item?.entity_id > 2 &&item?.entity_id < 7 
+           )
+            })
+  
+  useEffect(()=>{
+  dispatch(getUsers())
+  },[dispatch])
 
 
   return (
@@ -76,17 +27,10 @@ export default function Categories() {
           <div id="carouselExampleSlidesOnly" className="carousel slide" data-ride="carousel" >
             <div className="carousel-inner">
               <div className="carousel-item active">
+              {loading?<Loading/>:
               
-              {isLoading ? <div style={{textAlign:"center"}}><RotatingLines
-                  strokeColor="grey"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="96"
-                  visible={true}
-                  
-                /> </div>:
                 <div className="row add-slider-row">
-                  {categories.map((product) => {
+                  {CategoriesData?.map((product) => {
                     return (
                       <div key={product.entity_id} className="col-md-4 animate__animated animate__fadeInUp" >
 
@@ -102,8 +46,8 @@ export default function Categories() {
                   })}
 
 
-
-                </div>}
+                </div>
+                 } {error ? <h1>{error}</h1>:null}
                 
               </div>
             </div>

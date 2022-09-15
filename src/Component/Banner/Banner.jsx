@@ -1,60 +1,22 @@
-import { useState, useEffect } from "react";
-import BlogData from "../Blog_Section/Blogapi";
-
-import axios from "axios";
-import {RotatingLines} from 'react-loader-spinner'
+import { useState, useEffect} from "react";
+import {useSelector,useDispatch} from "react-redux"
 import Carousel from "react-bootstrap/Carousel";
+import { getUsers } from "../Redux/Redux-Toolkit/reduxSlice/bannerSlice";
+import Loading from "../Loadinganimation/Loading";
 
-export default function Banner(e) {
+export default function Banner() {
+  const dispatch =useDispatch()
 
-  const [isLoading, setLoading] = useState(false);
+  // fetched data from redux 
+   const { data, loading, error } = useSelector((state) => state.banner)
 
-  const [sliderData, setSliderData] = useState([]);
+const banner = data?.[0]?.slider_banner
+  const sliderData = banner?.filter((ele)=> ele.banner_id <4)
 
-
-  const payload = { storeId: "1" };
-  const token = "zx647qcilhrmqg1udt56ba82d4s34ck8";
-  const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent";
 
 useEffect(()=>{
-  bannerData();
-  BlogData()
-},[])
-
-    const bannerData = async () => {
-      setLoading(true)
-      await axios(url, {
-        method: "POST",
-        data: payload,
-
-        header: {
-          "Content-Length": "<calculated when request is sent>",
-          Host: "<calculated when request is sent>",
-          "User-Agent": "PostmanRuntime/7.29.2",
-
-          " Accept": "*/*",
-          Connection: "keep-alive",
-          "Accept-Encoding": "gzip, deflate, br",
-          "Content-Type": "application/json",
-          " Authorization": `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-
-          const newData = (res.data[0].slider_banner).filter((item) => {
-            return (
-              item.banner_id<4
-            )
-          });
-          setSliderData(newData)
-           setLoading(false)
-
-        })
-        .catch((error) => {
-          console.log("this is error", error);
-        });
-    };
- 
+dispatch(getUsers())
+},[dispatch])
 
 
 
@@ -67,42 +29,12 @@ useEffect(()=>{
             className="carousel slide"
             data-ride="carousel"
           >
-            {/* <ol className="carousel-indicators carousel-indicators-numbers">
-              <li
-                data-target="#carousel-example-generic"
-                data-slide-to="0"
-                id="1"
-                className="active"
-              >
-                01
-              </li>
-              <li
-                data-target="#carousel-example-generic"
-                data-slide-to="1"
-                id="2"
-              >
-                02
-              </li>
-              <li
-                data-target="#carousel-example-generic"
-                data-slide-to="2"
-                id="3"
-              >
-                03
-              </li>
-            </ol> */}
+          
 
             <div className="carousel-inner">
               <div className="carousel-item active"style={{backgroundColor:"transparent"}}>
-                {isLoading ? <div style={{textAlign:"center"}}><RotatingLines
-                  strokeColor="grey"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="96"
-                  visible={true}
-                  
-                /> </div>:
-
+                
+              {loading?<Loading/>:null}
                   <Carousel
                     fade
                     interval={3000}
@@ -112,9 +44,10 @@ useEffect(()=>{
                     controls={false}
 
                   >
-                    {sliderData.map((slide, index) => {
-                      return (
-                        <Carousel.Item  >
+                       {sliderData?.map((slide)=>{
+                          return(
+
+                        <Carousel.Item key={slide.banner_id} >
                           <img
                             className="d-block"
                             src={slide.image}
@@ -124,12 +57,11 @@ useEffect(()=>{
                             alt="slide1"
                             value="item"
                           />
-
                         </Carousel.Item>
-                      );
-                    })}
+                        )
+                      })}
                   </Carousel>
-                }
+
               </div>
             </div>
           </div>

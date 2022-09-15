@@ -3,18 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {store,persistor}  from './Component/Redux/Storepage/Store';
+import  store from './Component/Redux/Redux-Toolkit/reduxSlice/store';
 import {Provider}from 'react-redux'
-import {PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter basename='/reactmarketplace' >
   <Provider store={store}>
-  <PersistGate persistor={persistor} >
+ 
     <App />
-    </PersistGate>
+
   </Provider>
   </BrowserRouter>
 );

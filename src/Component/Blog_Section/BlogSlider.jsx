@@ -1,54 +1,65 @@
 import React, { useEffect, useState, useRef } from "react";
-import axios from "axios"
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
-
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { RotatingLines } from "react-loader-spinner";
 import Slider from 'react-slick'
-export default function Blogs() {
+import Loading from "../Loadinganimation/Loading";
+import { getUsers } from "../Redux/Redux-Toolkit/reduxSlice/bannerSlice";
 
-  const [isLoading, setLoading] = useState(false)
+export default function Blogs() {
+  const dispatch = useDispatch()
+  // const [isLoading, setLoading] = useState(false)
 
   const sliderRef = useRef(null)
 
-  const [blog, setBlog] = useState([]);
+  // const [blog, setBlog] = useState([]);
 
-  const payload = { storeId: "1" };
+  // const payload = { storeId: "1" };
 
-  const token = "zx647qcilhrmqg1udt56ba82d4s34ck8";
-  const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent";
+  // const token = "zx647qcilhrmqg1udt56ba82d4s34ck8";
+  // const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent";
+
+  // useEffect(() => {
+  //   const blogData = async () => {
+  //     setLoading(true)
+  //     await axios(url, {
+  //       method: "POST",
+  //       data: payload,
+
+  //       header: {
+  //         "Content-Length": "<calculated when request is sent>",
+  //         "Host": "<calculated when request is sent>",
+  //         "User-Agent": "PostmanRuntime/7.29.2",
+  //         " Accept": "*/*",
+  //         "Connection": "keep-alive",
+  //         "Accept-Encoding": "gzip, deflate, br",
+  //         "Content-Type": "application/json",
+  //         " Authorization": `Bearer ${token}`,
+  //       },
+  //     })
+  //       .then((res) => {
+  //         setBlog(res.data[2].blogs);
+  //         setLoading(false)
+
+
+
+  //       })
+  //       .catch((error) => {
+  //         console.log("this is error", error);
+  //       });
+  //   };
+  //   blogData();
+  // }, []);
+  const { data, loading, error } = useSelector((state) => state.banner)
+
+  const blog = data?.[2]?.blogs
+  // const banner = data?.[0]?.slider_banner
+  //   const sliderData = banner?.filter((ele)=> ele.banner_id <4)
+
 
   useEffect(() => {
-    const blogData = async () => {
-      setLoading(true)
-      await axios(url, {
-        method: "POST",
-        data: payload,
-
-        header: {
-          "Content-Length": "<calculated when request is sent>",
-          "Host": "<calculated when request is sent>",
-          "User-Agent": "PostmanRuntime/7.29.2",
-          " Accept": "*/*",
-          "Connection": "keep-alive",
-          "Accept-Encoding": "gzip, deflate, br",
-          "Content-Type": "application/json",
-          " Authorization": `Bearer ${token}`,
-        },
-      })
-        .then((res) => {
-          setBlog(res.data[2].blogs);
-          setLoading(false)
-
-
-
-        })
-        .catch((error) => {
-          console.log("this is error", error);
-        });
-    };
-    blogData();
-  }, []);
+    dispatch(getUsers())
+  }, [dispatch])
 
   var settings = {
     dots: true,
@@ -111,40 +122,34 @@ export default function Blogs() {
                       <span className="sr-only">Next</span>
                     </a>
                   </div>
+                  {loading ? <Loading /> :
 
-                  {isLoading ? <div style={{textAlign:"center"}}><RotatingLines
-                  strokeColor="grey"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="96"
-                  visible={true}
-                  
-                /> </div>:
-                  <Slider {...settings} className="row" ref={sliderRef} responsive={responsive}>
-                    {blog.map((ele) => {
-                      return (
-                        <NavLink key={ele.post_id} to=''>
-                          <div className="blog-item">
-                            <img
-                              className="d-block"
-                              src={ele.image}
-                              alt="blog"
-                            />
-                            <div className="blog-dec">
-                              <label>
-                                {ele.short_description}
-                              </label>
-                              <h4>
-                                {ele.post_content}
-                              </h4>
+                    <Slider {...settings} className="row" ref={sliderRef} responsive={responsive}>
+                      {blog?.map((ele) => {
+                        return (
+                          <NavLink key={ele.post_id} to=''>
+                            <div className="blog-item">
+                              <img
+                                className="d-block"
+                                src={ele.image}
+                                alt="blog"
+                              />
+                              <div className="blog-dec">
+                                <label>
+                                  {ele.short_description}
+                                </label>
+                                <h4>
+                                  {ele.post_content}
+                                </h4>
+                              </div>
                             </div>
-                          </div>
-                        </NavLink>
-                      )
+                          </NavLink>
+                        )
 
-                    })}
-                  </Slider>
-                    }
+                      })}
+                    </Slider>
+                  }
+
 
                 </div>
               </div>

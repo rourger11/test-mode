@@ -9,7 +9,6 @@ import axios from 'axios'
 import { NavLink, useParams } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import { RotatingLines } from 'react-loader-spinner'
-import { useDispatch, useSelector } from 'react-redux'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import star from '../../../main/assets/img/p-list/star.png'
@@ -17,11 +16,6 @@ import star from '../../../main/assets/img/p-list/star.png'
 
 export default function Productlist() {
 
-
-
-
-
-    const getData = useSelector((state) => state.cartreducer.carts)
 
     const [isLoading, setLoading] = useState(false)
 
@@ -34,7 +28,8 @@ export default function Productlist() {
     //  fetching products data from api
     useEffect(() => {
         fetchProduct();
-    }, [id]);
+        cartitem()
+        },[id]);
 
     // all product api
     const allproducturl = `http://10.8.11.171/magento/rest/V1/products?searchCriteria[filterGroups][0][filters][0][field]=category_id& searchCriteria[filterGroups][0][filters][0][value]=3& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][1][field]=visibility& searchCriteria[filterGroups][0][filters][1][value]=4& searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[sortOrders][0][field]=created_at& searchCriteria[sortOrders][0][direction]=DESC& searchCriteria[pageSize]=10& searchCriteria[currentPage]=1`;
@@ -50,11 +45,7 @@ export default function Productlist() {
     const fetchProduct = async () => {
         if (id.entity_id === '3') {
             setLoading(true)
-            await axios.get(allproducturl,{
-                headers: {
-                    'Authorization': `Bearer${newToken}`
-                  },
-            })
+            await axios.get(allproducturl)
                 .then((res) => {
                     setData(res.data.items);
                     setShowFilter(true)
@@ -92,7 +83,6 @@ export default function Productlist() {
     // }
     const profile_path = "http://10.8.11.171/magento/pub/media/catalog/product/";
 
-    const dispatch = useDispatch();
 
 
 
@@ -128,6 +118,8 @@ export default function Productlist() {
     }
 
 
+
+
     const cartitem = async (e) => {
 
         // add to cart items api 
@@ -159,15 +151,15 @@ export default function Productlist() {
             .then((response) => {
                 productlist()
                 toast.success("item added successfully", { autoClose: 1000 });
-
+                cartitem()
 
             })
             .catch((error) => {
                 console.log("error", error)
 
             })
-    }
-
+        }
+       
     return (
         <>
             <main>

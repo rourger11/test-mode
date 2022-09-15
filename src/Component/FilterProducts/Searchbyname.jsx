@@ -21,6 +21,7 @@ export default function Searchbyname() {
 
     useEffect(() => {
         searchData();
+        cartitem()
     }, [params]);
 
     const [isLoading, setLoading] = useState(false)

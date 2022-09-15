@@ -1,103 +1,46 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { NavLink } from 'react-router-dom';
-import { RotatingLines } from 'react-loader-spinner';
-import  image from '../../main/assets/img/donwait.png'
-import blogData from '../Blog_Section/Blogapi';
+import image from '../../main/assets/img/donwait.png'
+import { useDispatch, useSelector } from 'react-redux';
+import { getUsers } from '../Redux/Redux-Toolkit/reduxSlice/bannerSlice';
+import Loading from '../Loadinganimation/Loading';
+
 
 export default function Collection() {
-  const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const [collection, setCollection] = useState([]);
-  const [collection2, setCollection2] = useState([]);
-  const [collection3, setCollection3] = useState([]);
-  const [collection4, setCollection4] = useState([]);
+  
 
-  const payload = {
-    storeId: "1",
+  const { data, loading, error } = useSelector((state) => state.banner)
 
-    categories: "categories"
-  };
+  const collection = (data?.[1]?.categories)?.filter((item) => {
+    return (
+      item.entity_id == 8
+    )
+  })
+  const collection2 = (data?.[1]?.categories)?.filter((item) => {
+    return (
+      item.entity_id == 9
+    )
+  })
+  const collection3 = (data?.[1]?.categories)?.filter((item) => {
+    return (
+      item.entity_id == 10
+    )
+  })
+  const collection4 = (data?.[1]?.categories)?.filter((item) => {
+    return (
+      item.entity_id == 11
+    )
+  })
 
-  const token = "zx647qcilhrmqg1udt56ba82d4s34ck8"
-  const url = "https://stgm.appsndevs.com/reactmarketplace/rest/V1/getHomeContent";
 
 
   useEffect(() => {
-    category();
-  }, []);
-
-  const category = async () => {
-    setLoading(true)
-    await axios(url, {
-      method: "POST",
-      data: payload,
-
-      header: {
-        "Content-Length": "<calculated when request is sent>",
-        "Host": "<calculated when request is sent>",
-        "User-Agent": "PostmanRuntime/7.29.2",
-
-        " Accept": "*/*",
-        "Connection": "keep-alive",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Content-Type": "application/json",
-        " Authorization": `Bearer ${token}`,
-      },
+    dispatch(getUsers())
+  }, [dispatch])
 
 
-    })
-      .then((res) => {
-
-        const newData = (res.data[1].categories).filter((item) => {
-          return (
-            item.entity_id == 8
-          )
-
-        });
-        setCollection(newData)
-        setLoading(false)
-
-
-
-        const newData2 = (res.data[1].categories).filter((item) => {
-          return (
-            item.entity_id == 9
-          )
-
-        });
-        setCollection2(newData2)
-
-
-        const newData3 = (res.data[1].categories).filter((item) => {
-          return (
-            item.entity_id == 10
-          )
-
-        });
-        setCollection3(newData3)
-
-
-
-        const newData4 = (res.data[1].categories).filter((item) => {
-          return (
-            item.entity_id == 11
-          )
-
-        });
-        setCollection4(newData4)
-
-
-      })
-      .catch((error) => {
-        console.log("this is error", error);
-      });
-  };
-  const res = async()=>{
-    await axios.post(blogData()).then((response)=>{
-      console.log(response,"this is ")
-    })
-  }
   return (
     <>
       <div className="tab-sec " data-wow-duration="2s" data-wow-delay="5s">
@@ -125,20 +68,13 @@ export default function Collection() {
           <div className="tab-content" id="myTabContent">
             <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="one">
 
-           {isLoading ? <div style={{textAlign:"center"}}><RotatingLines
-                  strokeColor="grey"
-                  strokeWidth="5"
-                  animationDuration="0.75"
-                  width="96"
-                  visible={true}
-                  
-                /> </div>:
+              {loading?<Loading/>:
               <div className="d-flex ec-home-shopping-products">
-              
-                {collection.map((item) => {
+
+                {collection?.map((item) => {
                   return (
                     <>
-                      <div key={item.sku}className="c-img-1 pr-3 wow  animate__animated animate__fadeInLeft">
+                      <div key={item.sku} className="c-img-1 pr-3 wow  animate__animated animate__fadeInLeft">
                         <NavLink to="/productlist/5">
                           <img className="d-block " src={item.image} alt="Second slide" />
                         </NavLink >
@@ -149,7 +85,7 @@ export default function Collection() {
 
 
                 <div className="c-img-2 wow animate__animated animate__fadeInUp">
-                  {collection2.map((item2) => {
+                  {collection2?.map((item2) => {
                     return (
                       <>
 
@@ -160,7 +96,7 @@ export default function Collection() {
                     )
                   })}
 
-                  {collection3.map((item3) => {
+                  {collection3?.map((item3) => {
                     return (
                       <>
                         <NavLink to="/productlist/4">
@@ -170,7 +106,7 @@ export default function Collection() {
                     )
                   })}
                 </div>
-                {collection4.map((item4) => {
+                {collection4?.map((item4) => {
                   return (
                     <>
                       <NavLink to="/productlist/4">
@@ -183,7 +119,7 @@ export default function Collection() {
                   )
                 })}
               </div>
-              }
+              } {error?<h1>{error}</h1>:null}
             </div>
             <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="two">...</div>
             <div className="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="three">...</div>
